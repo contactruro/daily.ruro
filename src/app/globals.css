@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    font-feature-settings: "kern", "liga";
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  /* Faint ruled-paper texture used behind page headers */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, rgba(31, 30, 27, 0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  ::selection {
+    @apply bg-brand-tint text-ink;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.brand.DEFAULT");
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-pill border border-border bg-paper px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-body;
+  }
+
+  .card {
+    @apply rounded-card border border-border bg-paper p-6 shadow-soft transition-shadow hover:shadow-soft-lg;
+  }
+
+  /* Story currently being read by the podcast player */
+  [data-playing] > article {
+    @apply border-brand/50 ring-2 ring-brand/20 transition-shadow;
+  }
+
+  .card-dark {
+    @apply rounded-card border border-border-dark bg-ink p-6 text-white;
+  }
+
+  /* Long-form article body: serif, generous leading, ~70ch measure. */
+  .article-body {
+    @apply font-serif text-[1.125rem] leading-[1.75] text-ink/90;
+  }
+  .article-body > * + * { @apply mt-5; }
+  .article-body h2 { @apply mt-10 font-serif text-2xl font-semibold text-ink; }
+  .article-body h3 { @apply mt-8 font-serif text-xl font-semibold text-ink; }
+  .article-body a { @apply text-brand underline decoration-brand/30 underline-offset-2 hover:decoration-brand; }
+  .article-body ul { @apply list-disc pl-6; }
+  .article-body ol { @apply list-decimal pl-6; }
+  .article-body li + li { @apply mt-2; }
+  .article-body blockquote { @apply border-l-2 border-border pl-5 italic text-gray-body; }
+  .article-body img { @apply rounded-card-sm; }
+  .article-body code { @apply rounded bg-cream-dim px-1 py-0.5 font-mono text-[0.9em]; }
+  .article-body pre { @apply overflow-x-auto rounded-card-sm bg-cream-dim p-4 text-sm; }
+}
